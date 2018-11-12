@@ -1,3 +1,4 @@
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 module managers {
     export class Collision {
         // private instance variables
@@ -20,12 +21,14 @@ module managers {
                     console.log("collided with" + object2.name);
 
                     switch(object2.name) {
-                        case "enemy":
+                        case "meteorite":
                             let yaySound = createjs.Sound.play("yaySound");
                             yaySound.volume = 0.1;
                             managers.Game.scoreBoard.Score += 100;
                         break;
-                        case "meteorite":
+                        case "enemies":
+                            let explosion = createjs.Sound.play("explosion02");
+                            explosion.volume = 0.1;
                             managers.Game.scoreBoard.Lives -= 1;
 
                             if(managers.Game.scoreBoard.Lives <= 0) {

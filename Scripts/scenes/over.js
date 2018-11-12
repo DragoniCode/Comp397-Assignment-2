@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var scenes;
 (function (scenes) {
     var Over = /** @class */ (function (_super) {
@@ -25,10 +26,16 @@ var scenes;
         // private methods
         // public methods
         Over.prototype.Main = function () {
-            // adds background to the stage
+            // adds background to the scene
+            this._background = new objects.Background();
             this.addChild(this._background);
+            this._background2 = new objects.Background();
+            this._background2.Reset();
+            this.addChild(this._background2);
             // adds restartButton to the stage
             this.addChild(this._restartButton);
+            // adds exitButton to the stage
+            this.addChild(this._exitButton);
             // adds player to the stage
             this.addChild(this._gameOverLabel);
             // event listeners
@@ -37,17 +44,29 @@ var scenes;
                 managers.Game.currentState = config.Scene.PLAY;
                 managers.Game.scoreBoard.Reset();
             });
+            //returns to Start/Home scene
+            this._exitButton.on("click", function () {
+                managers.Game.currentState = config.Scene.START;
+                managers.Game.scoreBoard.Reset();
+            });
             managers.Game.scoreBoard.AddHighScore(this);
         };
         Over.prototype.Start = function () {
             // Instantiates objects
-            this._restartButton = new objects.Button("restartButton", 320, 360, true);
-            this._background = new objects.Background("spaceBackground", config.Constants.verticalPlaySpeed);
-            this._gameOverLabel = new objects.Label("Game Over", "60px", "Consolas", "#FFFF00", 320, 240, true);
+            this._restartButton = new objects.Button("restartButton", 320, 340, true);
+            this._exitButton = new objects.Button("exitButton", 250, 400);
+            this._gameOverLabel = new objects.Label("Game Over", "60px", "Consolas", "#FFFF00", 320, 220, true);
             this.Main();
         };
         Over.prototype.Update = function () {
-            this._background.Update();
+            // updates background 1
+            if (this._background.x >= 1280 || this._background.x <= 640) {
+                this._background2.Update();
+            }
+            // updates background 2
+            if (this._background2.x >= 1280 || this._background2.x <= 640) {
+                this._background.Update();
+            }
         };
         Over.prototype.Reset = function () {
         };

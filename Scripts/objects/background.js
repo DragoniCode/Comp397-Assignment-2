@@ -11,43 +11,46 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var objects;
 (function (objects) {
     var Background = /** @class */ (function (_super) {
         __extends(Background, _super);
         // public properties
         // constructor
-        /**
-         *Creates an instance of Background.
-         * @param {string} imageString
-         * @param {number} [verticalSpeed=0]
-         * @memberof Background
-         */
-        function Background(imageString, verticalSpeed) {
-            if (verticalSpeed === void 0) { verticalSpeed = 0; }
-            var _this = _super.call(this, imageString) || this;
-            _this._verticalSpeed = verticalSpeed;
+        function Background() {
+            var _this = _super.call(this, "spaceBackground", 90) || this;
+            _this.Start();
             return _this;
         }
         // private methods
         Background.prototype._checkBounds = function () {
-            if (this.y >= config.Constants.canvasHeight) {
+            // if(this.y >= config.Constants.canvasHeight){
+            //     this.Reset();
+            // }
+            if (this.x <= 0) {
                 this.Reset();
             }
         };
         Background.prototype._move = function () {
-            this.y += this._verticalSpeed;
+            this.x -= this._speed;
         };
         // public methods
         Background.prototype.Start = function () {
-            this.y = -this.Height + config.Constants.canvasHeight;
+            // this.y = -this.Height + config.Constants.canvasHeight;
+            // this.x = 1280;
+            this.x = 1280;
+            this._speed = 5;
         };
         Background.prototype.Update = function () {
             this._move();
             this._checkBounds();
         };
         Background.prototype.Reset = function () {
-            this.y = -this.Height;
+            // this.y = -this.Height;
+            this.x = 1920;
+            // this.x = this.Height + (this.Height - this.HalfHeight);
+            // this.x = this.HalfHeight;
         };
         Background.prototype.Destroy = function () {
         };

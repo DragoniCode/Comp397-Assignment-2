@@ -14,55 +14,47 @@ var __extends = (this && this.__extends) || (function () {
 //Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var scenes;
 (function (scenes) {
-    var Start = /** @class */ (function (_super) {
-        __extends(Start, _super);
+    var Instructions = /** @class */ (function (_super) {
+        __extends(Instructions, _super);
         // public properties
         // constructors
-        function Start() {
+        function Instructions() {
             var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // private methods
         // public methods
-        Start.prototype.Main = function () {
+        Instructions.prototype.Main = function () {
             // adds background to the scene
             this._background = new objects.Background();
             this.addChild(this._background);
             this._background2 = new objects.Background();
             this._background2.Reset();
             this.addChild(this._background2);
-            // adds start button to the scene
-            this.addChild(this._startButton);
-            // adds intructions button to the scene
-            this.addChild(this._instructionsButton);
             // adds exit button to the scene
             this.addChild(this._exitButton);
-            // adds welcomelabel to the scene
-            this.addChild(this._welcomeLabel);
+            //adds labels to the scene
+            this.addChild(this._winLabel);
+            this.addChild(this._winText);
+            this.addChild(this._loseLabel);
+            this.addChild(this._loseText);
             // event listeners
             // starts the play scene
-            this._startButton.on("click", function () {
-                managers.Game.currentState = config.Scene.PLAY;
-            });
-            // goes to the instructions scene
-            this._instructionsButton.on("click", function () {
-                managers.Game.currentState = config.Scene.INSTRUCTIONS;
-            });
-            // starts the play scene
             this._exitButton.on("click", function () {
-                managers.Game.currentState = config.Scene.CREDITS;
+                managers.Game.currentState = config.Scene.START;
             });
         };
-        Start.prototype.Start = function () {
+        Instructions.prototype.Start = function () {
             // Instantiates objects
-            this._startButton = new objects.Button("startButton", 160, 240, true);
-            this._instructionsButton = new objects.Button("instructionsButton", 440, 240, true);
-            this._exitButton = new objects.Button("exitButton", 300, 360, true);
-            this._welcomeLabel = new objects.Label("Shooting Star", "60px", "Consolas", "#FFFF00", 320, 120, true);
+            this._winLabel = new objects.Label("For the Win:", "48px", "Consolas", "#FFFF00", 320, 40, true);
+            this._winText = new objects.Label("Shoot the enemies or collect Metorites to score!", "22px", "Consolas", "#FFFFFF", 320, 120, true);
+            this._loseLabel = new objects.Label("Don't Lose:", "48px", "Consolas", "#FFFF00", 320, 200, true);
+            this._loseText = new objects.Label("Dodge the incoming enemies!", "22px", "Consolas", "#FFFFFF", 320, 280, true);
+            this._exitButton = new objects.Button("exitButton", 520, 420, true);
             this.Main();
         };
-        Start.prototype.Update = function () {
+        Instructions.prototype.Update = function () {
             // updates background 1
             if (this._background.x >= 1280 || this._background.x <= 640) {
                 this._background2.Update();
@@ -72,13 +64,13 @@ var scenes;
                 this._background.Update();
             }
         };
-        Start.prototype.Reset = function () {
+        Instructions.prototype.Reset = function () {
         };
-        Start.prototype.Destroy = function () {
+        Instructions.prototype.Destroy = function () {
             this.removeAllChildren();
         };
-        return Start;
+        return Instructions;
     }(objects.Scene));
-    scenes.Start = Start;
+    scenes.Instructions = Instructions;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=start.js.map
+//# sourceMappingURL=instructions.js.map

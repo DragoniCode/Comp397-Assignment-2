@@ -1,3 +1,4 @@
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -25,58 +26,36 @@ var scenes;
         }
         // private methods
         // public methods
-        Play.prototype.Main = function () {
-            // adds backgrounds to the stage
-            for (var count = 0; count < this._backgroundNum; count++) {
-                this.addChild(this._backgrounds[count]);
-            }
-            // adds meteorite to the scene
-            this.addChild(this._meteorite);
-            // adds player to the stage
-            this.addChild(this._player);
-            // adds planets to the scene
-            for (var count = 0; count < this._planetNum; count++) {
-                this.addChild(this._planets[count]);
-            }
-            //adds enemies to the scene
-            for (var count = 0; count < this._enemiesNum; count++) {
-                this.addChild(this._enemies[count]);
-            }
-            this.addChild(this._boss);
-            //add Scoreboard UI to the Scene
-            managers.Game.scoreBoard.AddGameUI(this);
-        };
         Play.prototype.Start = function () {
             this._planetNum = 1;
-            this._backgroundNum = 2;
             this._enemiesNum = 4;
-            // instantiates background array
-            this._backgrounds = new Array();
-            // creates 2 backgrounds to have an infinte scroller
-            for (var count = 0; count < this._backgroundNum; count++) {
-                this._backgrounds[count] = new objects.Background("spaceBackground", config.Constants.verticalPlaySpeed);
-            }
-            this._currentBackgroundNum = 0;
-            // Places the second background in the Reset position instead of the Start position
-            this._backgrounds[1].Reset();
             this._meteorite = new objects.Meteorite();
             this._player = new objects.Player();
             this._boss = new objects.Boss();
             // must do this to instantiate the array
             this._planets = new Array();
             this._enemies = new Array();
-            // adds planets to the array
-            for (var count = 0; count < this._planetNum; count++) {
-                this._planets[count] = new objects.Planet();
-            }
+            // adds enemies to the array
             for (var count = 0; count < this._enemiesNum; count++) {
                 this._enemies[count] = new objects.Enemies();
             }
+            // play background music when the level starts
+            this._bgm = createjs.Sound.play("spaceship");
+            this._bgm.volume = 0.1;
+            this._bgm.loop = -1; // loop forever
             this.Main();
         };
         Play.prototype.Update = function () {
             var _this = this;
             this._player.Update();
+            // updates background 1
+            if (this._background.x >= 1280 || this._background.x <= 640) {
+                this._background2.Update();
+            }
+            // updates background 2
+            if (this._background2.x >= 1280 || this._background2.x <= 640) {
+                this._background.Update();
+            }
             this._meteorite.Update();
             managers.Collision.Check(this._player, this._meteorite);
             this._boss.Update();
@@ -91,28 +70,32 @@ var scenes;
                 enemy.Update();
                 managers.Collision.Check(_this._player, enemy);
             });
-            // updates background 0
-            if (this._backgrounds[1].y >= 0 || this._backgrounds[1].y <= config.Constants.canvasHeight - this._backgrounds[1].Height) {
-                this._backgrounds[0].Update();
-            }
-            // updates background 1
-            if (this._backgrounds[0].y >= 0 || this._backgrounds[0].y <= config.Constants.canvasHeight - this._backgrounds[0].Height) {
-                this._backgrounds[1].Update();
-            }
-            /* if (this._backgrounds[this._currentBackgroundNum].CheckBounds(){
-                if(this._currentBackgroundNum == 0){
-                    this._currentBackgroundNum++;
-                }
-                else{
-                    this._currentBackgroundNum--;
-                }
-                this._backgrounds[this._currentBackgroundNum].Reset();
-            } */
         };
         Play.prototype.Reset = function () {
         };
         Play.prototype.Destroy = function () {
             this.removeAllChildren();
+            this._bgm.stop();
+        };
+        Play.prototype.Main = function () {
+            var _this = this;
+            // adds background to the scene
+            this._background = new objects.Background();
+            this.addChild(this._background);
+            this._background2 = new objects.Background();
+            this._background2.Reset();
+            this.addChild(this._background2);
+            // adds meteorite to the scene
+            this.addChild(this._meteorite);
+            // adds player to the stage
+            this.addChild(this._player);
+            //adds enemies to the scene
+            this._enemies.forEach(function (enemies) {
+                _this.addChild(enemies);
+            });
+            this.addChild(this._boss);
+            //add Scoreboard UI to the Scene
+            managers.Game.scoreBoard.AddGameUI(this);
         };
         return Play;
     }(objects.Scene));

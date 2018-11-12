@@ -14,55 +14,34 @@ var __extends = (this && this.__extends) || (function () {
 //Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var scenes;
 (function (scenes) {
-    var Start = /** @class */ (function (_super) {
-        __extends(Start, _super);
+    var Credits = /** @class */ (function (_super) {
+        __extends(Credits, _super);
         // public properties
         // constructors
-        function Start() {
+        function Credits() {
             var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // private methods
         // public methods
-        Start.prototype.Main = function () {
+        Credits.prototype.Main = function () {
             // adds background to the scene
             this._background = new objects.Background();
             this.addChild(this._background);
             this._background2 = new objects.Background();
             this._background2.Reset();
             this.addChild(this._background2);
-            // adds start button to the scene
-            this.addChild(this._startButton);
-            // adds intructions button to the scene
-            this.addChild(this._instructionsButton);
-            // adds exit button to the scene
-            this.addChild(this._exitButton);
-            // adds welcomelabel to the scene
-            this.addChild(this._welcomeLabel);
+            //adds author label to the scene
+            this.addChild(this._authorLabel);
             // event listeners
-            // starts the play scene
-            this._startButton.on("click", function () {
-                managers.Game.currentState = config.Scene.PLAY;
-            });
-            // goes to the instructions scene
-            this._instructionsButton.on("click", function () {
-                managers.Game.currentState = config.Scene.INSTRUCTIONS;
-            });
-            // starts the play scene
-            this._exitButton.on("click", function () {
-                managers.Game.currentState = config.Scene.CREDITS;
-            });
         };
-        Start.prototype.Start = function () {
+        Credits.prototype.Start = function () {
             // Instantiates objects
-            this._startButton = new objects.Button("startButton", 160, 240, true);
-            this._instructionsButton = new objects.Button("instructionsButton", 440, 240, true);
-            this._exitButton = new objects.Button("exitButton", 300, 360, true);
-            this._welcomeLabel = new objects.Label("Shooting Star", "60px", "Consolas", "#FFFF00", 320, 120, true);
+            this._authorLabel = new objects.Label("Created by : Gabriele Hunte", "28px", "Consolas", "#FFFF00", 220, 120, true);
             this.Main();
         };
-        Start.prototype.Update = function () {
+        Credits.prototype.Update = function () {
             // updates background 1
             if (this._background.x >= 1280 || this._background.x <= 640) {
                 this._background2.Update();
@@ -72,13 +51,13 @@ var scenes;
                 this._background.Update();
             }
         };
-        Start.prototype.Reset = function () {
+        Credits.prototype.Reset = function () {
         };
-        Start.prototype.Destroy = function () {
+        Credits.prototype.Destroy = function () {
             this.removeAllChildren();
         };
-        return Start;
+        return Credits;
     }(objects.Scene));
-    scenes.Start = Start;
+    scenes.Credits = Credits;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=start.js.map
+//# sourceMappingURL=credits.js.map

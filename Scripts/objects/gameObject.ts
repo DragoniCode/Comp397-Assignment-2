@@ -1,3 +1,4 @@
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 module objects {
     export abstract class GameObject extends createjs.Bitmap {
          // private instance variables
@@ -60,9 +61,9 @@ module objects {
          }
  
          // constructors
-         constructor(imageString:string) {
+         constructor(imageString:string, rotation:number = 0) {
              super(managers.Game.assetManager.getResult(imageString));
- 
+             this.rotation = rotation;
              this.name = imageString;
              this._initialize();
          }

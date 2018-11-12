@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var objects;
 (function (objects) {
     var Player = /** @class */ (function (_super) {
@@ -19,7 +20,7 @@ var objects;
         // public properties
         // constructors
         function Player() {
-            var _this = _super.call(this, "player") || this;
+            var _this = _super.call(this, "player", 90) || this;
             _this.Start();
             return _this;
         }
@@ -28,22 +29,28 @@ var objects;
         Player.prototype.Start = function () {
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
-            this.y = 435;
-            // super.Start();
+            this.x = 50;
         };
         Player.prototype.Update = function () {
-            this.x = managers.Game.stage.mouseX;
+            // this.x = managers.Game.stage.mouseX;
+            this.y = managers.Game.stage.mouseY;
             this._updatePosition();
-            if (this.x > config.Constants.canvasWidth - this.HalfWidth) {
-                this.x = config.Constants.canvasWidth - this.HalfWidth;
+            // if(this.x > config.Constants.canvasWidth - this.HalfWidth){
+            //     this.x = config.Constants.canvasWidth - this.HalfWidth;
+            // }
+            // if(this.x < this.HalfWidth){
+            //     this.x = this.HalfWidth;
+            // }
+            // checks the right boundary
+            if (this.y > 480 - this.HalfHeight) {
+                this.y = 480 - this.HalfHeight;
             }
-            if (this.x < this.HalfWidth) {
-                this.x = this.HalfWidth;
+            // check the left boundary
+            if (this.y < this.HalfHeight) {
+                this.y = this.HalfHeight;
             }
-            // super.Update();
         };
         Player.prototype.Reset = function () {
-            // super.Reset();
         };
         Player.prototype.Destroy = function () {
         };

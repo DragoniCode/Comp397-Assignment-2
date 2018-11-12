@@ -1,4 +1,4 @@
-//IIFE - Immediately Invoked Function Expression
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 (function(){
     // game variables
     let canvas:HTMLCanvasElement;
@@ -14,10 +14,13 @@
     let scoreBoard:managers.ScoreBoard;
 
     // Utility variables
-    let imagePath:string = "./Assets/images/"
-    let audioPath:string = "./Assets/audio/"
+    let imagePath:string = "./Assets/images/";
+    let audioPath:string = "./Assets/audio/";
+
     let assetManifest = [
         {id: "startButton", src: imagePath + "startButton.png"},
+        {id: "exitButton", src: imagePath + "exitButton.png"},
+        {id: "instructionsButton", src: imagePath + "instructionsButton.png"},
         {id: "restartButton", src: imagePath + "restartButton.png"},
         {id: "player", src: imagePath + "player.png"},
         {id: "planet", src: imagePath + "planet.png"},
@@ -28,6 +31,9 @@
         {id: "startBackground", src: imagePath + "startBackground.jpg"},
         {id: "engineSound", src: audioPath + "engine.ogg"},
         {id: "thunderSound", src: audioPath + "thunder.ogg"},
+        {id: "explosion01", src: audioPath + "explosion14.m4a"},
+        {id: "explosion02", src: audioPath + "explosion19.m4a"},
+        {id: "spaceship", src: audioPath + "spaceship.m4a"},
         {id: "yaySound", src: audioPath + "yay.ogg"}
     ];
 
@@ -86,8 +92,14 @@
             case config.Scene.PLAY:
             currentScene = new scenes.Play();
             break;
+            case config.Scene.INSTRUCTIONS:
+             currentScene = new scenes.Instructions();
+            break;
             case config.Scene.OVER:
              currentScene = new scenes.Over();
+            break;
+            case config.Scene.CREDITS:
+             currentScene = new scenes.Credits();
             break;
         }
 

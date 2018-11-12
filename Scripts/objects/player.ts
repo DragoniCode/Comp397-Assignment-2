@@ -1,3 +1,4 @@
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 module objects {
     export class Player extends objects.GameObject {
         
@@ -7,7 +8,7 @@ module objects {
         
         // constructors
         constructor() {
-            super("player");
+            super("player",90);
 
             this.Start();
         }
@@ -20,27 +21,34 @@ module objects {
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
 
-            this.y = 435;
-            // super.Start();
+            this.x = 50;
         }
 
         public Update():void {
-            this.x = managers.Game.stage.mouseX;
+            // this.x = managers.Game.stage.mouseX;
+            this.y = managers.Game.stage.mouseY;
             this._updatePosition();
 
-            if(this.x > config.Constants.canvasWidth - this.HalfWidth){
-                this.x = config.Constants.canvasWidth - this.HalfWidth;
+            // if(this.x > config.Constants.canvasWidth - this.HalfWidth){
+            //     this.x = config.Constants.canvasWidth - this.HalfWidth;
+            // }
+
+            // if(this.x < this.HalfWidth){
+            //     this.x = this.HalfWidth;
+            // }
+            // checks the right boundary
+            if(this.y > 480 - this.HalfHeight) {
+                this.y = 480 - this.HalfHeight;
             }
 
-            if(this.x < this.HalfWidth){
-                this.x = this.HalfWidth;
+            // check the left boundary
+            if(this.y < this.HalfHeight) {
+                this.y = this.HalfHeight;
             }
-            // super.Update();
 
         }
 
         public Reset(): void {
-            // super.Reset();
         }
         
         public Destroy(): void {

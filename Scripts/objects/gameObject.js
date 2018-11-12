@@ -11,13 +11,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var objects;
 (function (objects) {
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         // constructors
-        function GameObject(imageString) {
+        function GameObject(imageString, rotation) {
+            if (rotation === void 0) { rotation = 0; }
             var _this = _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
+            _this.rotation = rotation;
             _this.name = imageString;
             _this._initialize();
             return _this;

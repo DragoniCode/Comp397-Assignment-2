@@ -1,3 +1,4 @@
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var managers;
 (function (managers) {
     var Collision = /** @class */ (function () {
@@ -17,12 +18,14 @@ var managers;
                     object2.IsColliding = true;
                     console.log("collided with" + object2.name);
                     switch (object2.name) {
-                        case "enemy":
+                        case "meteorite":
                             var yaySound = createjs.Sound.play("yaySound");
                             yaySound.volume = 0.1;
                             managers.Game.scoreBoard.Score += 100;
                             break;
-                        case "meteorite":
+                        case "enemies":
+                            var explosion = createjs.Sound.play("explosion02");
+                            explosion.volume = 0.1;
                             managers.Game.scoreBoard.Lives -= 1;
                             if (managers.Game.scoreBoard.Lives <= 0) {
                                 managers.Game.currentState = config.Scene.OVER;

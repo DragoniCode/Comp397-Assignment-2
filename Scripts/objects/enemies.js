@@ -11,21 +11,28 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+//Comp397 - Assignment 2, Author: Gabriele Hunte - 300833315 , Last Modifed by Moi, Date Last Modified - 10/11/2018
 var objects;
 (function (objects) {
     var Enemies = /** @class */ (function (_super) {
         __extends(Enemies, _super);
         // constructors
         function Enemies() {
-            return _super.call(this, "enemies") || this;
+            var _this = _super.call(this, "enemies", 90) || this;
+            _this.Start();
+            return _this;
         }
         // private methods
         Enemies.prototype._move = function () {
             this.y += this._verticalSpeed;
-            this.x += this._horizontalSpeed;
+            this.x -= this._horizontalSpeed;
+            this._updatePosition();
         };
         Enemies.prototype._checkBounds = function () {
-            if (this.y > config.Constants.canvasHeight + this.Height) {
+            // if(this.y > config.Constants.canvasHeight + this.Height){
+            //     this.Reset();
+            // }
+            if (this.x < 0 - this.Width) {
                 this.Reset();
             }
         };
@@ -40,10 +47,10 @@ var objects;
             this._checkBounds();
         };
         Enemies.prototype.Reset = function () {
-            this._verticalSpeed = Math.floor((Math.random() * 6) + 6); // speed from 5 to 10
-            this._horizontalSpeed = Math.floor((Math.random() * 4) - 2); // speed from -2 to 2
-            this.y = -this.Height;
-            this.x = Math.floor(Math.random() * (config.Constants.canvasWidth - this.Width) + this.HalfWidth);
+            this._horizontalSpeed = Math.floor((Math.random() * 5) + 5);
+            this._verticalSpeed = Math.floor((Math.random() * 4) - 2);
+            this.x = 640 + this.Width;
+            this.y = Math.floor((Math.random() * (480 - this.Height)) + this.HalfHeight);
             this.IsColliding = false;
         };
         Enemies.prototype.Destroy = function () {
